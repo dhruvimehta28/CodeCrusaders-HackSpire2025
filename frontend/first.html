@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Get Started</title>
+  <style>
+    /* Full-screen setup with reset */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Background image section */
+    .hero-section {
+      background-image: url('image.jpg'); /* Change this to your image */
+      background-size: cover;
+      background-position: center;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      color: white;
+    }
+
+    /* Dark overlay for readability */
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    /* Main content */
+    .hero-content {
+      z-index: 2;
+      text-align: center;
+      color: #F3D9B1;
+    }
+
+    .hero-content h1 {
+      font-size: 3em;
+      font-family: "AmstelvarAlpha";
+      margin-bottom: 20px;
+    }
+    .hero-subtitle {
+      font-size: 2em;
+      margin-bottom: 30px;
+    }
+
+    .get-started-btn {
+      background-color: #ff7f50;
+      color: white;
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .get-started-btn:hover {
+      background-color: #ff5722;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>WELCOME TO STUDY BUDDY </h1>
+     <div class="hero-subtitle">  
+      <p>Build. Learn. Grow.</p>
+      </div>
+      <button class="get-started-btn" onclick="location.href='1.html'">LET'S BEGIN</button>
+
+         
+      
+    </div>
+  </div>
+</body>
+</html>
