@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyHub - Your Learning Platform</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0d1117; /* Dark tech background */
+            color: #c9d1d9; /* Light text for contrast */
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle, #0d1117, #161b22, #21262d);
+            z-index: -1;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #161b22;
+            color: #58a6ff; /* Neon blue */
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #58a6ff;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: #c9d1d9;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #58a6ff;
+        }
+        
+        /* Main Content Styles */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #161b22, #21262d);
+            color: #58a6ff;
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px #58a6ff, 0 0 20px #58a6ff;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #58a6ff;
+            color: #0d1117;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px #58a6ff;
+        }
+        
+        .btn:hover {
+            background-color: #0d1117;
+            color: #58a6ff;
+            box-shadow: 0 0 15px #58a6ff;
+        }
+        
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .feature-card {
+            background-color: #161b22;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+            border-top: 4px solid #58a6ff;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .feature-card h3 {
+            color: #58a6ff;
+            margin-bottom: 1rem;
+        }
+        
+        /* Subjects Section */
+        .subjects-section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #58a6ff;
+            text-shadow: 0 0 10px #58a6ff;
+        }
+        
+        .subjects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .subject-card {
+            background-color: #161b22;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            border-top: 3px solid #58a6ff;
+        }
+        
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .subject-card i {
+            font-size: 2.5rem;
+            color: #58a6ff;
+            margin-bottom: 1rem;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: #161b22;
+            color: #c9d1d9;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #58a6ff;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section ul li a {
+            color: #c9d1d9;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: #58a6ff;
+        }
+        
+        .footer-bottom {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #21262d;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+            }
+            
+            nav ul li {
+                margin: 0 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">STUDY BUDDY</div>
+        <nav>
+            <ul>
+                <li><a href="first.html">Home</a></li>
+                <li><a href="#">Progress</a></li>
+                <li><a href="progress.html">Study Tools</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main class="container">
+        <section class="hero">
+            <h1>Enhance Your Learning Experience</h1>
+            <p>Access thousands of resources, study materials, and tools to help you succeed in your academic journey.</p>
+            <a href="login3.html" class="btn">Get Started</a>
+        </section>
+        
+        <section class="features">
+            <div class="feature-card">
+                <h3>STUDY MATERIALS</h3>
+                <p>Access textbooks, lecture notes, and practice problems for all major subjects and academic levels.</p>
+                <a href="materials.html" class="btn">CLICK HERE</a>
+            </div>
+            <div class="feature-card">
+                <h3>STUDY BOT</h3>
+                <p>Ask anything and everything beyond your imaginations!</p>
+                <a href="materials.html" class="btn">CLICK HERE</a>
+            </div>
+            <div class="feature-card">
+                <h3>INTERACTIVE QUIZ</h3>
+                <p>A quick, fun question that users answer interactively.</p>
+                <a href="quiz.html" class="btn">CLICK HERE</a>
+            </div>
+        </section>
+        
+        <section class="subjects-section">
+            <h2>Popular Subjects</h2>
+            <div class="subjects">
+                <div class="subject-card">
+                    <i class="fas fa-calculator"></i>
+                    <h3>Mathematics</h3>
+                </div>
+                <div class="subject-card">
+                    <i class="fas fa-flask"></i>
+                    <h3>Science</h3>
+                </div>
+                <div class="subject-card">
+                    <i class="fas fa-globe-americas"></i>
+                    <h3>History</h3>
+                </div>
+                <div class="subject-card">
+                    <i class="fas fa-book"></i>
+                    <h3>Literature</h3>
+                </div>
+                <div class="subject-card">
+                    <i class="fas fa-desktop"></i>
+                    <h3>Computer Science</h3>
+                </div>
+                <div class="subject-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>Artificial Intelligence</h3>
+                </div>
+                <div class="subject-card">
+                    <i class="fas fa-code"></i>
+                    <h3>Python</h3>
+                </div>
+                <div class="subject-card">
+                    <i class="fas fa-language"></i>
+                    <h3>English</h3>
+                </div>
+                <div class="subject-card">
+                    <i class="fas fa-seedling"></i>
+                    <h3>Environmental Science</h3>
+                </div>
+                <div class="subject-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>Machine Learning</h3>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Study Buddy is your ultimate learning companion, offering tools and resources to enhance your academic journey.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="first.html">Home</a></li>
+                    <li><a href="materials.html">Study Tools</a></li>
+                    <li><a href="quiz.html">Interactive Quiz</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 Study Buddy. All rights reserved.
+        </div>
+    </footer>
+    
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Quiz - All Subjects</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle, #0d1117, #161b22, #21262d); /* Updated background */
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 30px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      opacity: 0.30; /* Adjust this value */
+      z-index: -1;
+    }
+
+    .quiz-container {
+      background: #161b22; /* Dark container background */
+      padding: 30px;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      color: #c9d1d9; /* Light text for contrast */
+    }
+
+    h1, h2 {
+      color: #58a6ff; /* Neon blue for headings */
+    }
+
+    select, button {
+      width: 90%;
+      padding: 12px;
+      margin: 12px 0;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #58a6ff; /* Neon blue border */
+      background: #21262d; /* Dark input background */
+      color: #c9d1d9;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+    }
+
+    button:hover {
+      background: #4a90e2; /* Slightly lighter blue on hover */
+    }
+
+    .timer {
+      font-size: 18px;
+      color: #ff5722; /* Bright orange for timer */
+      margin: 10px 0;
+      position: relative;
+    }
+
+    .time-bar {
+      width: 100%;
+      height: 8px;
+      background-color: #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .time-bar-fill {
+      height: 100%;
+      background-color: #4CAF50; /* Green for time bar */
+      width: 100%;
+      transition: width 1s linear;
+    }
+
+    .option {
+      text-align: left;
+      margin: 8px 0;
+    }
+
+    .option input {
+      margin-right: 10px;
+    }
+
+    .solution-link {
+      margin-top: 8px;
+      display: inline-block;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .btn {
+      position: center;
+      bottom: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      background-color: #58a6ff; /* Neon blue button */
+      color: #0d1117; /* Dark text */
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #4a90e2; /* Slightly lighter blue on hover */
+    }
+  </style>
+</head>
+<body>
+   
+<div class="quiz-container">
+  <h1>AI Personalized Quiz</h1>
+
+  <div id="start-screen">
+    <label for="subject">Select Subject:</label><br>
+    <select id="subject">
+      <option value="">--Select--</option>
+      <option value="mathematics">Mathematics</option>
+      <option value="science">Science</option>
+      <option value="history">History</option>
+      <option value="literature">Literature</option>
+      <option value="computerScience">Computer Science</option>
+      <option value="artificialIntelligence">Artificial Intelligence</option>
+    </select><br>
+    <button onclick="startQuiz()">Start Quiz</button>
+  </div>
+
+  <div id="quiz-screen" class="hide">
+    <div class="timer" id="timer">
+      Time Left: <span id="time-left">60</span>s
+      <div id="time-bar" class="time-bar">
+        <div id="time-bar-fill" class="time-bar-fill"></div>
+      </div>
+    </div>
+    <h2 id="question"></h2>
+    <div id="options"></div>
+    <button onclick="nextQuestion()">Next Question</button>
+  </div>
+
+  <div id="result-screen" class="hide">
+    <h2>Quiz Completed!</h2>
+    <div id="wrong-answers"></div>
+    <button onclick="restartQuiz()">Restart</button>
+  </div>
+
+</div>
+
+<script>
+const questions = {
+  mathematics: [
+    {question: "What is 8 × 7?", options: ["54", "56", "58", "60"], answer: "56", solution: "https://www.youtube.com/watch?v=lWApdJwlG70"},
+    {question: "What is 144 ÷ 12?", options: ["11", "12", "13", "14"], answer: "12", solution: "https://www.youtube.com/watch?v=Jsq3hY5zt9w"},
+    {question: "Area of a circle formula?", options: ["πr²", "2πr", "πd", "r²π"], answer: "πr²", solution: "https://www.youtube.com/watch?v=z6eGzHlZfCQ"},
+    {question: "Value of √49?", options: ["6", "7", "8", "9"], answer: "7", solution: "https://www.youtube.com/watch?v=ZTc-Jn1M6z4"},
+    {question: "Smallest prime number?", options: ["0", "1", "2", "3"], answer: "2", solution: "https://www.youtube.com/watch?v=sOlcz5zFP2U"}
+  ],
+  science: [
+    {question: "What planet is known as the Red Planet?", options: ["Earth", "Mars", "Venus", "Jupiter"], answer: "Mars", solution: "https://www.youtube.com/watch?v=Noaf9k8Tw1s"},
+    {question: "Boiling point of water?", options: ["90°C", "95°C", "100°C", "105°C"], answer: "100°C", solution: "https://www.youtube.com/watch?v=z2m-jTRXTgg"},
+    {question: "Process of plants making food?", options: ["Photosynthesis", "Respiration", "Digestion", "Transpiration"], answer: "Photosynthesis", solution: "https://www.youtube.com/watch?v=eo5XndJaz-Y"},
+    {question: "Chemical symbol of water?", options: ["O2", "H2", "H2O", "OH"], answer: "H2O", solution: "https://www.youtube.com/watch?v=g4NIJ0nDq90"},
+    {question: "Largest bone in the body?", options: ["Femur", "Tibia", "Humerus", "Fibula"], answer: "Femur", solution: "https://www.youtube.com/watch?v=gzEK6oI4h5Q"}
+  ],
+  history: [
+    {question: "Who discovered America?", options: ["Christopher Columbus", "Vasco da Gama", "Magellan", "Newton"], answer: "Christopher Columbus", solution: "https://www.youtube.com/watch?v=ZMEqKf4bpFk"},
+    {question: "Which war ended in 1945?", options: ["WWI", "WWII", "Cold War", "Civil War"], answer: "WWII", solution: "https://www.youtube.com/watch?v=HfH_R_bfwgo"},
+    {question: "First President of USA?", options: ["Lincoln", "Washington", "Jefferson", "Roosevelt"], answer: "Washington", solution: "https://www.youtube.com/watch?v=cT-t3v2nxNw"},
+    {question: "Where were the Pyramids built?", options: ["Rome", "Greece", "Egypt", "China"], answer: "Egypt", solution: "https://www.youtube.com/watch?v=5RnG3X-UMZg"},
+    {question: "Great Wall of China is how long?", options: ["10,000 km", "21,000 km", "30,000 km", "5,000 km"], answer: "21,000 km", solution: "https://www.youtube.com/watch?v=Pc1-74UMkxk"}
+  ],
+  literature: [
+    {question: "Who wrote 'Hamlet'?", options: ["Shakespeare", "Wordsworth", "Milton", "Chaucer"], answer: "Shakespeare", solution: "https://www.youtube.com/watch?v=ZRc2l0HzDPQ"},
+    {question: "'Pride and Prejudice' author?", options: ["Emily Bronte", "Jane Austen", "Mark Twain", "Dickens"], answer: "Jane Austen", solution: "https://www.youtube.com/watch?v=UqlsVZ1zxMk"},
+    {question: "'Odyssey' was written by?", options: ["Plato", "Aristotle", "Homer", "Socrates"], answer: "Homer", solution: "https://www.youtube.com/watch?v=JDgqGz7vLmw"},
+    {question: "Poem 'The Raven' is by?", options: ["Edgar Allan Poe", "Whitman", "Frost", "Shelley"], answer: "Edgar Allan Poe", solution: "https://www.youtube.com/watch?v=BefliMlEzZ8"},
+    {question: "First novel ever written?", options: ["Don Quixote", "Beowulf", "Paradise Lost", "Divine Comedy"], answer: "Don Quixote", solution: "https://www.youtube.com/watch?v=OT8l-RA0EZk"}
+  ],
+  computerScience: [
+    {question: "What does 'CPU' stand for?", options: ["Central Processing Unit", "Computer Power Unit", "Central Program Unit", "Computer Processing Unit"], answer: "Central Processing Unit", solution: "https://www.youtube.com/watch?v=IYQxLwWW64I"},
+    {question: "Which language is used for web development?", options: ["Python", "C++", "Java", "HTML"], answer: "HTML", solution: "https://www.youtube.com/watch?v=U7XV-JH1fM0"},
+    {question: "What does HTML stand for?", options: ["Hypertext Markup Language", "Hyper Tool Markup Language", "Hyperlink Text Markup Language", "Hypermedia Text Language"], answer: "Hypertext Markup Language", solution: "https://www.youtube.com/watch?v=UB1O30fR-EE"},
+    {question: "Which type of data structure is a queue?", options: ["Linear", "Non-linear", "Stack", "Array"], answer: "Linear", solution: "https://www.youtube.com/watch?v=ZB0ba1L7gBs"},
+    {question: "Who invented the first computer?", options: ["Charles Babbage", "Alan Turing", "Bill Gates", "Steve Jobs"], answer: "Charles Babbage", solution: "https://www.youtube.com/watch?v=U0NeQhWc6w4"}
+  ]
+};
+
+let currentSubject = '';
+let currentQuestionIndex = 0;
+let score = 0;
+let timeLeft = 60;
+let timer;
+
+function startQuiz() {
+  currentSubject = document.getElementById('subject').value;
+  if (currentSubject === '') return alert('Please select a subject!');
+  document.getElementById('start-screen').classList.add('hide');
+  document.getElementById('quiz-screen').classList.remove('hide');
+  startTimer();
+  displayQuestion();
+}
+
+function startTimer() {
+  const timeFill = document.getElementById('time-bar-fill');
+  timer = setInterval(() => {
+    timeLeft--;
+    document.getElementById('time-left').textContent = timeLeft;
+    if (timeFill) {
+      timeFill.style.width = (timeLeft / 60) * 100 + '%';
+    }
+    if (timeLeft === 0) {
+      clearInterval(timer);
+      endQuiz();
+    }
+  }, 1000);
+}
+
+function displayQuestion() {
+  const question = questions[currentSubject][currentQuestionIndex];
+  document.getElementById('question').textContent = question.question;
+  let optionsHtml = '';
+  question.options.forEach(option => {
+    optionsHtml += `<div class="option"><input type="radio" name="option" value="${option}"> ${option}</div>`;
+  });
+  document.getElementById('options').innerHTML = optionsHtml;
+}
+
+function nextQuestion() {
+  const selectedOption = document.querySelector('input[name="option"]:checked');
+  if (selectedOption) {
+    const selectedAnswer = selectedOption.value;
+    const correctAnswer = questions[currentSubject][currentQuestionIndex].answer;
+
+    if (selectedAnswer === correctAnswer) {
+      score++;
+    } else {
+      const solutionLink = questions[currentSubject][currentQuestionIndex].solution;
+      document.getElementById('wrong-answers').innerHTML += `<p>Question ${currentQuestionIndex + 1}: <b>Incorrect</b> (Correct Answer: ${correctAnswer})<br><a href="${solutionLink}" target="_blank">Watch Solution</a></p>`;
+    }
+  }
+  currentQuestionIndex++;
+  if (currentQuestionIndex < questions[currentSubject].length) {
+    displayQuestion();
+  } else {
+    endQuiz();
+  }
+}
+
+function endQuiz() {
+  clearInterval(timer);
+  document.getElementById('quiz-screen').classList.add('hide');
+  document.getElementById('result-screen').classList.remove('hide');
+  document.getElementById('wrong-answers').innerHTML += `<p><strong>Your score is: ${score} / ${questions[currentSubject].length}</strong></p>`;
+}
+
+function restartQuiz() {
+  score = 0;
+  currentQuestionIndex = 0;
+  timeLeft = 60;
+  document.getElementById('wrong-answers').innerHTML = '';
+  document.getElementById('result-screen').classList.add('hide');
+  document.getElementById('start-screen').classList.remove('hide');
+}
+</script>
+
+<button class="btn" onclick="window.location.href='1.html'">Back to Home</button>
+
+</body>
+</html>

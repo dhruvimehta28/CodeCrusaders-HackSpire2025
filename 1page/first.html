@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Get Started</title>
+  <style>
+    /* Full-screen setup with reset */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121212; /* Dark background */
+    }
+
+    /* Background image section */
+    .hero-section {
+     
+      background-size: cover;
+      background-position: center;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      color: white;
+    }
+
+    /* Dark overlay for readability */
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.8); /* Darker overlay */
+      z-index: 1;
+    }
+
+    /* Main content */
+    .hero-content {
+      z-index: 2;
+      text-align: center;
+      color: #00eaff; /* Neon green */
+    }
+
+    .hero-content h1 {
+      font-size: 3em;
+      font-family: "AmstelvarAlpha";
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #00FFAB, 0 0 20px #00FFAB;
+    }
+
+    .hero-subtitle {
+      font-size: 1.5em;
+      margin-bottom: 30px;
+      color: #00eaFF; /* Neon blue */
+      text-shadow: 0 0 10px #00E0FF, 0 0 20px #00E0FF;
+    }
+
+    .get-started-btn {
+      background-color: #1E1E1E; /* Dark button background */
+      color: #00e5ff; /* Neon green text */
+      padding: 15px 30px;
+      font-size: 18px;
+      border: 2px solid #00FFAB; /* Neon green border */
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 10px #00FFAB;
+    }
+
+    .get-started-btn:hover {
+      background-color: #00FFAB; /* Neon green hover */
+      color: #121212; /* Dark text on hover */
+      text-shadow: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>WELCOME TO STUDY BUDDY</h1>
+      <div class="hero-subtitle">  
+        <p>Build. Learn. Grow.</p>
+      </div>
+      <button class="get-started-btn" onclick="location.href='1.html'">LET'S BEGIN</button>
+    </div>
+  </div>
+</body>
+</html>

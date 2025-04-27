@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Progress Tracker</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle, #0d1117, #161b22, #21262d); /* Updated background */
+            margin: 0;
+            padding: 20px;
+            color: #c9d1d9; /* Light text for contrast */
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            background-color: #161b22; /* Dark container background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #58a6ff; /* Neon blue */
+            color: #0d1117; /* Dark text */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-right: 20px;
+        }
+        
+        .user-info h2 {
+            margin: 0;
+            color: #58a6ff; /* Neon blue */
+        }
+        
+        .user-info p {
+            margin: 5px 0 0;
+            color: #c9d1d9;
+        }
+        
+        .progress-section {
+            background-color: #161b22; /* Dark container background */
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        
+        .progress-title {
+            color: #58a6ff; /* Neon blue */
+            margin-top: 0;
+            border-bottom: 1px solid #21262d;
+            padding-bottom: 10px;
+        }
+        
+        .progress-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .progress-item {
+            margin-bottom: 10px;
+        }
+        
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background-color: #21262d; /* Darker background for progress bar */
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #58a6ff, #4a90e2); /* Neon gradient */
+            border-radius: 10px;
+            width: 0%;
+            transition: width 1s ease;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background-color: #21262d; /* Darker background for stats */
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #58a6ff; /* Neon blue */
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            color: #c9d1d9;
+        }
+        
+        .graph-container {
+            height: 300px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 600px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-pic {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-header">
+            <div class="profile-pic" id="userInitial">JD</div>
+            <div class="user-info">
+                <h2 id="userName">Rajvi Patel</h2>
+                <p id="userEmail">rajvi12@gmail.com</p>
+                <p>Member since: <span id="joinDate">January 2024</span></p>
+            </div>
+        </div>
+        
+        <div class="progress-section">
+            <h2 class="progress-title">Your Learning Progress</h2>
+            <div class="progress-container">
+                <div class="progress-item">
+                    <div class="progress-info">
+                        <span>Mathematics</span>
+                        <span>65%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 65%"></div>
+                    </div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-info">
+                        <span>Science</span>
+                        <span>42%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 42%"></div>
+                    </div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-info">
+                        <span>History</span>
+                        <span>78%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 78%"></div>
+                    </div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-info">
+                        <span>Literature</span>
+                        <span>35%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 35%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="progress-section">
+            <h2 class="progress-title">Your Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Courses Enrolled</div>
+                    <div class="stat-value">12</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Hours Learned</div>
+                    <div class="stat-value">87</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Exams Taken</div>
+                    <div class="stat-value">24</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Average Score</div>
+                    <div class="stat-value">82%</div>
+                </div>
+            </div>
+            
+            <div class="graph-container">
+                <canvas id="progressChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animate progress bars
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const targetWidth = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = targetWidth;
+                }, 100);
+            });
+            
+            // Initialize chart
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                    datasets: [{
+                        label: 'Overall Progress %',
+                        data: [15, 30, 45, 60, 65, 82, 75],
+                        backgroundColor: 'rgba(88, 166, 255, 0.1)',
+                        borderColor: '#58a6ff',
+                        borderWidth: 3,
+                        tension: 0.3,
+                        fill: true,
+                        pointBackgroundColor: '#58a6ff',
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                },
+                                font: {
+                                    size: 12
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
